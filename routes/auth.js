@@ -22,11 +22,11 @@ router.get("/login/guest", async (req, res) => {
         maxAge: 1000 * 60 * 60 * 24,
         httpOnly: true,
       });
+      res.redirect(`${process.env.FRONTEND_URL}/photos`);
     }
-    res.redirect(`${process.env.FRONTEND_URL}/photos`);
   } catch (error) {
     console.error(error);
-    res.status(500)._construct.send("Something went wrong. Please try again");
+    res.status(500).send("Something went wrong. Please try again");
   }
 });
 

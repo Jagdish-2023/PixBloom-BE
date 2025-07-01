@@ -16,7 +16,13 @@ const Image = require("./models/Image.model");
 const PORT = process.env.PORT || 3000;
 
 const app = express();
-app.use(cors({ credentials: true, origin: true }));
+app.use(
+  cors({
+    credentials: true,
+    origin: "https://pixbloom.vercel.app",
+    optionSuccessStatus: 200,
+  })
+);
 app.use(cookieParser());
 app.use(bodyParser.json());
 

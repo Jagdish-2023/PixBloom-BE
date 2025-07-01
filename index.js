@@ -33,6 +33,8 @@ initializeDB();
 
 app.use("/auth", authRoutes);
 
+app.get("/", (req, res) => res.send("Welcome to PixBloom API"));
+
 app.get("/v2/user/profile", verifyJWT, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);

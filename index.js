@@ -47,6 +47,7 @@ app.get("/v2/user/profile", verifyJWT, async (req, res) => {
 
     res.status(200).json(user);
   } catch (error) {
+    console.error(error);
     res.status(500).send("Failed to fetch user Profile");
   }
 });
@@ -57,6 +58,7 @@ app.get("/images", verifyJWT, async (req, res) => {
 
     return res.status(200).json(images);
   } catch (error) {
+    console.error(error);
     res.status(500).send("Failed to fetch images");
   }
 });
@@ -93,6 +95,7 @@ app.get("/albums", verifyJWT, async (req, res) => {
 
     return res.status(200).json(albums);
   } catch (error) {
+    console.error(error);
     res.status(500).send("Failed to fetch Albums");
   }
 });
@@ -108,6 +111,7 @@ app.get("/albums/:albumId", verifyJWT, async (req, res) => {
     photos = await Image.find({ album: albumId });
     res.status(200).json({ album, photos });
   } catch (error) {
+    console.error(error);
     res.status(500).send("Failed to fetch Album");
   }
 });
@@ -262,6 +266,7 @@ app.post("/images/image/favourite", verifyJWT, async (req, res) => {
       .status(200)
       .json({ message: "Image added to favourites", updatedImage });
   } catch (error) {
+    console.error(error);
     res.status(500).send("Failed to add image into favourites");
   }
 });

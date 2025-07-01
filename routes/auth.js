@@ -21,6 +21,8 @@ router.get("/login/guest", async (req, res) => {
       res.cookie("accessToken", token, {
         maxAge: 1000 * 60 * 60 * 24,
         httpOnly: true,
+        sameSite: "None",
+        secure: true,
       });
       res.redirect(`${process.env.FRONTEND_URL}/photos`);
     }
@@ -47,7 +49,7 @@ router.get("/google/callback", async (req, res) => {
         client_secret: CLIENT_SECRET,
         code,
         grant_type: "authorization_code",
-        redirect_uri: `http://localhost:${PORT}/auth/google/callback`,
+        redirect_uri: `https://pix-bloom-be.vercel.app/auth/google/callback`,
       },
       { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
     );
@@ -82,6 +84,8 @@ router.get("/google/callback", async (req, res) => {
     res.cookie("accessToken", token, {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
+      sameSite: "None",
+      secure: true,
     });
     res.redirect(`${process.env.FRONTEND_URL}/photos`);
   } catch (error) {

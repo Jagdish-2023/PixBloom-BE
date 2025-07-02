@@ -89,6 +89,7 @@ router.get("/google/callback", async (req, res) => {
     });
     res.redirect(`${process.env.FRONTEND_URL}/photos`);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Authentication Failed" });
   }
 });
@@ -99,6 +100,7 @@ router.get("/logout", (req, res) => {
 
     res.status(200).json({ message: "Logout successfully" });
   } catch (error) {
+    console.error(error);
     res.status(500).json("Failed to Logout");
   }
 });
@@ -112,6 +114,7 @@ router.get("/check", (req, res) => {
 
     res.status(200).json({ isLoggedIn: true });
   } catch (error) {
+    console.error(error);
     res.status(500).json("Failed to check Login status");
   }
 });

@@ -87,7 +87,7 @@ router.get("/google/callback", async (req, res) => {
       sameSite: "None",
       secure: true,
     });
-    res.redirect(`${process.env.FRONTEND_URL}/photos`);
+    res.redirect(process.env.FRONTEND_URL);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Authentication Failed" });

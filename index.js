@@ -19,7 +19,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: "https://pixbloom.vercel.app",
+    origin: process.env.FRONTEND_URL,
     optionSuccessStatus: 200,
   })
 );

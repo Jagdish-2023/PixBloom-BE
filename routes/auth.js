@@ -9,6 +9,7 @@ const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 const JWT_SECRET = process.env.JWT_SECRET;
 const GUEST_EMAIL = process.env.GUEST_EMAIL;
+const BACKEND_URL = process.env.BACKEND_URL;
 
 router.get("/login/guest", async (req, res) => {
   try {
@@ -33,7 +34,7 @@ router.get("/login/guest", async (req, res) => {
 });
 
 router.get("/google", async (req, res) => {
-  const googleAuthUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID}&redirect_uri=https://pix-bloom-be.vercel.app/auth/google/callback&response_type=code&scope=profile email`;
+  const googleAuthUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${CLIENT_ID}&redirect_uri=${BACKEND_URL}/auth/google/callback&response_type=code&scope=profile email`;
   res.redirect(googleAuthUrl);
 });
 
@@ -49,7 +50,7 @@ router.get("/google/callback", async (req, res) => {
         client_secret: CLIENT_SECRET,
         code,
         grant_type: "authorization_code",
-        redirect_uri: `https://pix-bloom-be.vercel.app/auth/google/callback`,
+        redirect_uri: `${BACKEND_URL}/auth/google/callback`,
       },
       { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
     );
@@ -96,7 +97,11 @@ router.get("/google/callback", async (req, res) => {
 
 router.get("/logout", (req, res) => {
   try {
-    res.clearCookie("accessToken", { httpOnly: true });
+    res.clearCookie("accessToken", {
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
+    });
 
     res.status(200).json({ message: "Logout successfully" });
   } catch (error) {

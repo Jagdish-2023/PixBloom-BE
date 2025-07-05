@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-console.log("Mongo connection string: ", process.env.MONGO_URI);
 
 const initializeDB = async () => {
   try {
